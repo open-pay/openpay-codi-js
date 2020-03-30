@@ -21,6 +21,7 @@
     CodiClient.DEVELOPMENT = "DEVELOPMENT";
     CodiClient.QA = "QA";
     CodiClient.LOCAL = "LOCAL";
+    CodiClient.IMGS = "https://public.openpay.mx/images/codi/";
 
     class RequestError extends Error {
         constructor(message) {
@@ -189,7 +190,7 @@
         let timeLeft = document.getElementById("timeLeft");
         let header = document.getElementById("codiHeader");
         
-        section1.innerHTML = '<div class="codiImageContainer codiCentered"><img src="/dashboard/img/codi/' + _json.status + '.svg" alt="' + _messages.get(_json.status).text2 + '"></div>';
+        section1.innerHTML = '<div class="codiImageContainer codiCentered"><img src="' + CodiClient.IMGS + _json.status + '.svg" alt="' + _messages.get(_json.status).text2 + '"></div>';
         divText.innerHTML = '<div class="codiMessage">' + _messages.get(_json.status).text2 + '</div>';
         let str = _messages.get(_json.status).text1;
         timeLeft.innerHTML = str.replace("#EXPIRATION#", _json.due_date).replace("#ERROR#", "404");
@@ -209,16 +210,6 @@
                 _json.qrcode_base64 = json.qrcode_base64;
                 _json.push_phone = json.push_phone;
                 _json.status = json.status;
-
-                /*// BORRAME
-                _json.id = "aksjnclksdjfnv";
-                _json.description = "Venta express";
-                _json.amount = "300.00";
-                _json.due_date = "2020-02-27T17:28";
-                _json.qrcode_url = json.qrcode_url;
-                _json.push_phone = '4428679903';
-                _json.status = "CHARGE_PENDING";
-                */
                 return json;
             } else {
                 console.error(response);
@@ -323,14 +314,14 @@
         html += '<div id="codiHeader" class="codi"></div>';
         html += '<section id="section1" class="codi"></section>';
         html += '<section id="section2" class="codi"><div class="codiRow"><div id="trxAmount"></div></div><div class="codiRow"><div id="trxText"></div></div></section>';
-        html += '<div id="codiFooter" class="codi"><img class="codiCentered" src="/dashboard/img/codi/Openpay_powered.svg" alt="Powered by Openpay"></div>';
+        html += '<div id="codiFooter" class="codi"><img class="codiCentered" src="' + CodiClient.IMGS + 'Openpay_powered.svg" alt="Powered by Openpay"></div>';
         return html;
     }
 
     function displayChargePendingHeader(isPush) {
         let html = '<div class="codiCentered">';
         html += '<div class="codiHeaderRow1">';
-        html += '<div class="codiHeaderImage"><img src="/dashboard/img/codi/QR.svg" alt="QRC"></div>';
+        html += '<div class="codiHeaderImage"><img src="' +  CodiClient.IMGS + 'QR.svg" alt="QRC"></div>';
         if (isPush) {
             html += '<div class="codiHeaderText">Utilizar la aplicación móvil de banco para hacer el pago de la notificación</div>';
         } else {
@@ -344,5 +335,5 @@
         return html;
     }
 
-    const WAITING_FOR_PUSH_NOTIFICATION = '<div class="codiImageContainer codiCentered"><img src="/dashboard/img/codi/push.gif" alt="Esperando pago"></div>';
+    const WAITING_FOR_PUSH_NOTIFICATION = '<div class="codiImageContainer codiCentered"><img src="' + CodiClient.IMGS + 'push.gif" alt="Esperando pago"></div>';
 }());
